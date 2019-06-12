@@ -1,3 +1,5 @@
-print("Hello World")
-print("qwe")
-print("www")
+a = None
+print(a)
+
+if not a:
+    print(a)
