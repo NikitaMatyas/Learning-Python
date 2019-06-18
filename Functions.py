@@ -81,4 +81,97 @@ print(menu('chardonnay', 'chicken', 'cake'))
 
 
 # Получение позиционных аргументов с помощью *
+# Если * будет использована с параметром, произвольное количество позиционных аргументов будет сгрупированно в кортеж
+def print_args(*args):
+    print('Positional argument tuple: ', args)
 
+
+print_args()
+print_args(3, 2, 1, 'wait!', 'uh...')
+
+
+# Если в функции имеются обязательные позиционные аргументы, то *args отправится в конец списка
+def print_more(required1, required2, *args):
+    print('Need this one:', required1)
+    print('Need this one too:', required2)
+    print('All the rest:', args)
+
+
+print_more('cap', 'gloves', 'scarf', 'monocle', 'mustache wax')
+
+
+# Получение аргументов - ключевых слов с помощью **
+# Можно использовать ** чтобы сгруппировать аргументы - ключевые слова в словарь
+# Где имена аргументов станут ключами, а их значения - соответствующими значениями в словаре
+def print_kwargs(**kwargs):
+    print('Keyword arguments:', kwargs)
+
+
+print_kwargs(wine='merlot', entree='mutton', dessert='macaroon')
+
+
+# Строки документации
+def echo(anything):
+    """echo returns its input argument"""
+    return anything
+
+
+def print_if_true(thing, check):
+    """
+    Prints the first argument it a second argument is true.
+    Tre operation is:
+    1. Check whether the *second* argument is true.
+    2. If it is, print the *first* argument.
+    """
+    if check:
+        print(thing)
+
+
+help(print_if_true)
+# Без форматирования
+print(print_if_true.__doc__)
+
+
+# Функции - это объекты первого класса
+# Их можно присваивать переменным, использовать как аргументы для других функций и возвращать из функций
+def answer():
+    print(42)
+
+
+def run_something(func):
+    func()
+
+
+# Передача функции как параметра (без круглых скобок, чтобы относится к функции как объекту, а не вызывать)
+run_something(answer)
+
+
+def add_args(arg1, arg2):
+    print(arg1 + arg2)
+
+
+def run_something_with_args(func, arg1, arg2):
+    func(arg1, arg2)
+
+
+# Запускаем функцию run_something_with_args, которая запустит переданную в нее функцию func с аргументами arg1 и arg2
+run_something_with_args(add_args, 5, 9)
+
+
+# Можно объединять этот прием с использованием *args и **kwargs
+def sum_args(*args):
+    return sum(args)
+
+
+print(sum_args(10, 10, 30, 10))
+
+
+def run_with_positional_args(func, *args):
+    return func(*args)
+
+
+print(run_with_positional_args(sum_args, 1, 2, 3, 4))
+
+# Функции можно использовать как элементы списков, кортежей, множеств и словарей или ключи для словарей
+
+# Внутренние функции
