@@ -255,4 +255,66 @@ super() мы сможем гарантировать, что атрибуты и
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-# В защиту self
+# Получаем и устанавливаем значение атрибутов с помощью свойств
+class Duck:
+    def __init__(self, input_name):
+        self.hidden_name = input_name
+
+    def get_name(self):
+        print('inside the getter')
+        return self.hidden_name
+
+    def set_name(self, input_name):
+        print('inside the setter')
+        self.hidden_name = input_name
+
+    name = property(get_name, set_name)
+
+
+'''
+Новые методы get_name и set_name действуют как обычные геттеры и сеттеры до последней строки, где они указываются
+как свойства атрибута name. Первый аргумент функции property() - это геттер, а второй - сеттер. Теперь, когда вы
+обращаетесь к атрибуту name любого объекта Duck, вызывается метод get_name(), который возвращает его:
+'''
+print("")
+
+fow1 = Duck('Howard')
+print(fow1.name)
+
+# Можно вызвать метод get_name() непосредственно, как обычный геттер:
+print(fow1.get_name())
+
+# Когда вы присваиваете значение атрибуту name, вызывается метод set_name():
+fow1.name = 'Daffy'
+print(fow1.name)
+
+# Метод set_name() также можно вызвать непосредственно:
+fow1.set_name('Daffy')
+print(fow1.name)
+
+''' Еще один способ определить свойства - это декораторы. В следующем примере мы определим два разных метода с именем
+name(), предшествовать которым будут разные декораторы '''
+
+
+class Duck:
+    def __init__(self, input_name):
+        self.hidden_name = input_name
+
+    @property
+    def name(self):
+        print('inside the getter')
+        return self.hidden_name
+
+    @name.setter
+    def name(self, input_name):
+        print('inside the setter')
+        print('lol', input_name)
+
+
+# Вы все еще можете получить доступ к атрибуту name, но в этом случае не сущствует видимых методов геттер и сеттер
+print("")
+fow1 = Duck('Howard')
+print(fow1.name)
+print("-----------")
+fow1.name = 'Donald'
+print(fow1.name)
