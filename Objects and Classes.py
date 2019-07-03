@@ -512,4 +512,108 @@ who_says(brook)
 плавает как утка и крякает как утка, то это, вероятно, утка и есть" '''
 # ----------------------------------------------------------------------------------------------------------------------
 
-# Особые методы
+# Особые методы (их имена начинаются с двойных подчеркиваний (__) и заканчиваются ими
+
+
+class Word:
+    def __init__(self, text):
+        self.text = text
+
+    def equals(self, word2):
+        return self.text.lower() == word2.text.lower()
+
+
+first = Word('ha')
+second = Word('HA')
+third = Word('eh')
+print()
+
+# Когда строки 'ha' и 'HA' сравниваются в нижнем регистре, они должны быть равными:
+print(first.equals(second))
+
+# Но строка 'eh' не совпадает со строкой 'ha':
+print(first.equals(third))
+
+''' Мы определили метод equals(), который выполняет преобразоване строки в нижний регистр и сравнивание. Однако было бы
+здорово, если бы могли просто сказать first == second, как в случае встроенных типов Python. Реализуем такую 
+возможность. Мы изменим имя метода equals() на особе имя __eq__() '''
+
+
+class Word:
+    def __init__(self, text):
+        self.text = text
+
+    def __eq__(self, word2):
+        return self.text.lower() == word2.text.lower()
+
+
+first = Word('ha')
+second = Word('HA')
+third = Word('eh')
+
+print(first == second)
+print(first == third)
+# Все что было нужно - указать особое имя метода для проверки на равенство __eq__()
+
+# Особые методы для сравнения:
+'''
+__eq__(self, other) ---> self == other
+__ne__(self, other) ---> self != other
+__lt__(self, other) ---> self < other
+__gt__(self, other) ---> self > other
+__le__(self, other) ---> self <= other
+__ge__(self, other) ---> self >= other
+'''
+
+# Особые методы для вычислений:
+'''
+__add__(self, other) ---> self + other
+__sub__(self, other) ---> self - other
+__mul__(self, other) ---> self * other
+__floordiv__(self, other) ---> self // other
+__truediv__(self, other) ---> self / other
+__mod__(self, other) ---> self % other
+__pow__(self, other) ---> self ** other
+'''
+
+''' Не обязательно использовать математические операторы вроде * только для работы с числами. Например, строковые
+объекты используют + для конкатенации и * для дуплицирования. Существует множество других методов, задокументированных
+онлайн по адресу:
+http://bit.ly/pydocs-smn
+'''
+# ----------------------------------------------------------------------------------------------------------------------
+
+# Композиция
+
+'''
+Наследование может сослужить хорошую службу, если вам нужно создать класс-потомок, который ведет себя как родительский
+класс большую часть времени (когда потом является предком). Возможность создавать иерархии наследования довольно 
+заманчива, но иногда композиция или агрегирование (когда X имеет Y) имеет больше смысла.
+Утка является птицей, но имеет хвост. Хвост не похож на утку, но он является частью утки. В следующем примере создадим
+объекты bill и tail и предоставим их новому объекту duck
+'''
+
+
+class Bill:
+    def __init__(self, description):
+        self.description = description
+
+
+class Tail:
+    def __init__(self, length):
+        self.length = length
+
+
+class Duck:
+    def __init__(self, bill, tail):
+        self.bill = bill
+        self.tail = tail
+
+    def about(self):
+        print('This duck has a', bill.description, 'bill and a', tail.length, 'tail')
+
+
+tail = Tail('long')
+bill = Bill('wide orange')
+duck = Duck(bill, tail)
+duck.about()
