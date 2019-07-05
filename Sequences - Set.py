@@ -63,7 +63,7 @@ for name, contents in drinks.items():
 # Пересечение множеств
 a = {1, 2}
 b = {2, 3}
-print (a & b)
+print(a & b)
 print(a.intersection(b))
 
 # Объединение множеств

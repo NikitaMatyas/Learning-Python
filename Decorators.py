@@ -47,8 +47,8 @@ add_ints(3, 5)
 # Каждая функция может иметь более одного декоратора
 def square_it(func):
     def new_function(*args, **kwargs):
-            result = func(*args, **kwargs)
-            return result * result
+        result = func(*args, **kwargs)
+        return result * result
     return new_function
 
 
