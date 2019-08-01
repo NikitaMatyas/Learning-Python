@@ -55,10 +55,15 @@ else:
     print('Cannot get data, status code is ', r.status_code)
 
 '''
-1. авторизоваться(ввести люой токен) https://openapi.appcenter.ms/#:
+1. авторизоваться(ввести любой токен) https://openapi.appcenter.ms/#:
 http://prntscr.com/js2kgp
 http://prntscr.com/js2ktl
 2. Использовать логин для любого метода post и выполнить post
 пример https://api.appcenter.ms/v0.1/user/invitations/orgs/arsenal/reject
 '''
 print('\nTask 4:')
+
+url = 'https://api.appcenter.ms/v0.1/user/invitations/orgs/qwerty/reject'
+headers = {'X-API-Token': '123'}
+r = requests.post(url, headers=headers)
+print(r.text)
